@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -8,7 +8,9 @@
 <style>
 :root {
     --gold: #ffd166;
-    --border: #68258b;
+    --border: #a855f7;
+    --bg-dark: #1e0933;
+    --panel-bg: linear-gradient(135deg, #2e1065, #1e0538);
 }
 
 * {
@@ -21,8 +23,8 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #3b1454 0%, #1a0826 60%, #0d0314 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at center, #3b0764 0%, #1a052c 70%, #090112 100%);
     color: #fff;
     min-height: 100vh;
     display: flex;
@@ -47,90 +49,111 @@ body {
 .top-bar {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .title {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 900;
     color: var(--gold);
-    text-shadow: 0 2px 8px #000;
+    text-shadow: 0 0 10px rgba(255, 209, 102, 0.6), 0 3px 6px #000;
+    letter-spacing: 1px;
 }
 
 .stats-card {
     width: 100%;
-    background: linear-gradient(145deg, #2b0d40, #180526);
+    background: var(--panel-bg);
     border: 2px solid var(--border);
-    border-radius: 16px;
-    padding: 10px;
+    border-radius: 18px;
+    padding: 12px 8px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.2);
 }
 
-.stat-box { text-align: center; }
-.stat-lbl { font-size: 10px; color: #b892cf; font-weight: bold; }
-.stat-val { font-size: 18px; color: #fff; font-weight: 900; margin-top: 2px; }
+.stat-box { 
+    text-align: center; 
+}
+
+.stat-lbl { 
+    font-size: 11px; 
+    color: #c084fc; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-val { 
+    font-size: 20px; 
+    color: #ffffff; 
+    font-weight: 900; 
+    margin-top: 2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
 
 #board-wrapper {
     width: 100%;
     aspect-ratio: 1;
     position: relative;
-    background: #0f0417;
-    border: 4px solid #8531b0;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px #000, inset 0 0 15px #000;
+    background: #11031d;
+    border: 4px solid #9333ea;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.9), inset 0 0 20px #000;
+    overflow: hidden;
 }
 
 canvas {
     width: 100%;
     height: 100%;
-    border-radius: 16px;
+    border-radius: 18px;
     display: block;
 }
 
 .btn-bar {
     display: flex;
-    gap: 12px;
-    margin-top: 5px;
+    gap: 14px;
+    margin-top: 6px;
+    width: 100%;
+    justify-content: center;
 }
 
 .btn {
-    border: 0;
-    border-radius: 20px;
-    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 26px;
     color: #fff;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 800;
+    font-size: 15px;
     cursor: pointer;
-    background: linear-gradient(#ff5376, #e60039);
-    box-shadow: 0 4px 0 #990026;
+    background: linear-gradient(180deg, #ec4899 0%, #be185d 100%);
+    box-shadow: 0 5px 0 #831843, 0 8px 15px rgba(0,0,0,0.4);
+    transition: all 0.1s ease;
 }
 
 .btn.blue {
-    background: linear-gradient(#3ca5ff, #0066cc);
-    box-shadow: 0 4px 0 #004080;
+    background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+    box-shadow: 0 5px 0 #0369a1, 0 8px 15px rgba(0,0,0,0.4);
 }
 
 .btn:active {
-    transform: translateY(2px);
+    transform: translateY(3px);
     box-shadow: 0 2px 0 #000;
 }
 
 .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(10, 2, 18, 0.95);
-    border-radius: 20px;
+    background: rgba(15, 3, 25, 0.94);
+    border-radius: 18px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    transition: 0.3s opacity;
+    transition: opacity 0.3s ease;
     z-index: 10;
 }
 
@@ -140,9 +163,16 @@ canvas {
 }
 
 .overlay h2 {
-    font-size: 30px;
+    font-size: 32px;
     color: var(--gold);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+}
+
+.overlay p {
+    font-size: 16px;
+    color: #e9d5ff;
+    margin-bottom: 24px;
 }
 </style>
 </head>
@@ -151,21 +181,21 @@ canvas {
 
 <div class="game-container">
     <div class="top-bar">
-        <div class="title">🍬 CANDY BLAST</div>
+        <div class="title">🍬 CANDY BLAST DELUXE</div>
     </div>
 
     <div class="stats-card">
-        <div class="stat-box"><span class="stat-lbl">LEVEL</span><span class="stat-val" id="level-txt">1</span></div>
-        <div class="stat-box"><span class="stat-lbl">TARGET</span><span class="stat-val" id="target-txt">1000</span></div>
-        <div class="stat-box"><span class="stat-lbl">SCORE</span><span class="stat-val" id="score-txt">0</span></div>
-        <div class="stat-box"><span class="stat-lbl">MOVES</span><span class="stat-val" id="moves-txt">20</span></div>
+        <div class="stat-box"><div class="stat-lbl">LEVEL</div><div class="stat-val" id="level-txt">1</div></div>
+        <div class="stat-box"><div class="stat-lbl">TARGET</div><div class="stat-val" id="target-txt">1000</div></div>
+        <div class="stat-box"><div class="stat-lbl">SCORE</div><div class="stat-val" id="score-txt">0</div></div>
+        <div class="stat-box"><div class="stat-lbl">MOVES</div><div class="stat-val" id="moves-txt">20</div></div>
     </div>
 
     <div id="board-wrapper">
         <canvas id="canvas"></canvas>
         <div id="overlay" class="overlay">
             <h2 id="modal-title">🎉 LEVEL PASSED!</h2>
-            <p id="modal-desc" style="margin-bottom: 20px; color: #ddd;"></p>
+            <p id="modal-desc"></p>
             <button class="btn" id="modal-btn" onclick="nextLevel()">Continue</button>
         </div>
     </div>
@@ -194,13 +224,14 @@ var board = [];
 var selected = null;
 var isAnimating = false;
 
+// Royal Match / Candy Deluxe Style Items
 var ITEMS = [
-    { name: 'Red Candy',    emoji: '🍬', color: '#ff4d4d' },
-    { name: 'Blue Candy',   emoji: '🍭', color: '#3399ff' },
-    { name: 'Green Candy',  emoji: '🍫', color: '#33cc33' },
-    { name: 'Yellow Candy', emoji: '🍩', color: '#ffcc00' },
-    { name: 'Purple Candy', emoji: '🧁', color: '#cc33ff' },
-    { name: 'Orange Candy', emoji: '🍇', color: '#ff9933' }
+    { name: 'Crown',   emoji: '👑', color: '#fbbf24', border: '#b45309' },
+    { name: 'Gem',     emoji: '💎', color: '#38bdf8', border: '#0369a1' },
+    { name: 'Apple',   emoji: '🍎', color: '#f87171', border: '#b91c1c' },
+    { name: 'Shield',  emoji: '🛡️', color: '#4ade80', border: '#15803d' },
+    { name: 'Leaf',    emoji: '🍃', color: '#c084fc', border: '#6b21a8' },
+    { name: 'Star',    emoji: '⭐', color: '#fb923c', border: '#c2410c' }
 ];
 
 function resizeCanvas() {
@@ -226,7 +257,7 @@ function initGame() {
     resizeCanvas();
 }
 
-// شروعات میں ایسا بورڈ بنانا جس میں کوئی پہلے سے 3-Match نہ ہو
+// شروعات میں 100% بغیر کسی میچ کے بورڈ بنانا
 function createValidBoard() {
     do {
         board = [];
@@ -258,32 +289,47 @@ function drawBoard() {
             var x = c * tileSize;
             var y = r * tileSize;
             
-            ctx.fillStyle = (r + c) % 2 === 0 ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.15)";
+            // گربڈ کا پس منظر (Grid Pattern)
+            ctx.fillStyle = (r + c) % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.2)";
             ctx.fillRect(x, y, tileSize, tileSize);
             
             if (type !== null && type !== undefined) {
                 var item = ITEMS[type];
-                
+                var centerX = x + tileSize / 2;
+                var centerY = y + tileSize / 2;
+                var radius = tileSize * 0.38;
+
+                // بلبلہ / کینڈی بیس (Gradient Base)
+                var grad = ctx.createRadialGradient(
+                    centerX - radius * 0.3, centerY - radius * 0.3, radius * 0.1,
+                    centerX, centerY, radius
+                );
+                grad.addColorStop(0, '#ffffff');
+                grad.addColorStop(0.3, item.color);
+                grad.addColorStop(1, item.border);
+
                 ctx.beginPath();
-                ctx.arc(x + tileSize / 2, y + tileSize / 2, tileSize * 0.4, 0, Math.PI * 2);
-                ctx.fillStyle = item.color;
+                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
                 ctx.fill();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 2.5;
+                ctx.strokeStyle = '#ffffff';
                 ctx.stroke();
-                
+
+                // منتخب شدہ آئٹم کا گولڈن اثر (Selection Glow)
                 if (selected && selected.x === c && selected.y === r) {
                     ctx.beginPath();
-                    ctx.arc(x + tileSize / 2, y + tileSize / 2, tileSize * 0.44, 0, Math.PI * 2);
+                    ctx.arc(centerX, centerY, radius + 4, 0, Math.PI * 2);
                     ctx.strokeStyle = "#ffd166";
-                    ctx.lineWidth = 6;
+                    ctx.lineWidth = 5;
                     ctx.stroke();
                 }
-                
-                ctx.font = (tileSize * 0.45) + "px Arial";
+
+                // آئکن / ایاموجی (Emoji Display)
+                ctx.font = (tileSize * 0.42) + "px sans-serif";
                 ctx.textAlign = "center";
                 ctx.textBaseline = "middle";
-                ctx.fillText(item.emoji, x + tileSize / 2, y + tileSize / 2 + 2);
+                ctx.fillText(item.emoji, centerX, centerY + 2);
             }
         }
     }
@@ -333,14 +379,14 @@ function attemptSwap(r1, c1, r2, c2) {
         if (matches.size > 0) {
             moves--;
             updateUI();
-            processMatches();
+            processCascadingMatches();
         } else {
-            // میچ نہ بننے کی صورت میں ریورٹ (Swap Back)
+            // اگر میچ نہ بنے تو سوپ واپس (Revert Swap)
             swap(r1, c1, r2, c2);
             drawBoard();
             isAnimating = false;
         }
-    }, 200);
+    }, 220);
 }
 
 function swap(r1, c1, r2, c2) {
@@ -352,7 +398,7 @@ function swap(r1, c1, r2, c2) {
 function getMatches() {
     var matched = new Set();
     
-    // Horizontal Match
+    // افقی میچز (Horizontal)
     for (var r = 0; r < GRID_SIZE; r++) {
         for (var c = 0; c < GRID_SIZE - 2; c++) {
             var val = board[r][c];
@@ -364,7 +410,7 @@ function getMatches() {
         }
     }
     
-    // Vertical Match
+    // عمودی میچز (Vertical)
     for (var c = 0; c < GRID_SIZE; c++) {
         for (var r = 0; r < GRID_SIZE - 2; r++) {
             var vVal = board[r][c];
@@ -378,31 +424,60 @@ function getMatches() {
     return matched;
 }
 
-function processMatches() {
+// میچز ختم کرنے اور اوپر سے آئٹمز گرانے (Cascading) کا عمل
+function processCascadingMatches() {
     var matches = getMatches();
     if (matches.size > 0) {
-        score += matches.size * 20;
+        score += matches.size * 25;
+        
+        // 1. ختم ہونے والے خانے خالی کریں
         matches.forEach(function(key) {
             var parts = key.split(",");
             var r = parseInt(parts[0]);
             var c = parseInt(parts[1]);
-            board[r][c] = Math.floor(Math.random() * ITEMS.length);
+            board[r][c] = null;
         });
+        
         updateUI();
         drawBoard();
-        
+
+        // 2. گریویٹی کے ذریعے نیچے لائیں اور نئے آئٹمز ڈالیں
         setTimeout(function() {
-            processMatches(); // کاپ اسکیڈنگ اور متبادل میچز کی چیکنگ
-        }, 250);
+            applyGravityAndRefill();
+            drawBoard();
+
+            // 3. اگلا سلسلہ وار میچ (Combo) چیک کریں
+            setTimeout(function() {
+                processCascadingMatches();
+            }, 250);
+        }, 200);
     } else {
         isAnimating = false;
         checkGameState();
     }
 }
 
+function applyGravityAndRefill() {
+    for (var c = 0; c < GRID_SIZE; c++) {
+        var emptySpot = GRID_SIZE - 1;
+        for (var r = GRID_SIZE - 1; r >= 0; r--) {
+            if (board[r][c] !== null) {
+                board[emptySpot][c] = board[r][c];
+                if (emptySpot !== r) {
+                    board[r][c] = null;
+                }
+                emptySpot--;
+            }
+        }
+        for (var fillR = emptySpot; fillR >= 0; fillR--) {
+            board[fillR][c] = Math.floor(Math.random() * ITEMS.length);
+        }
+    }
+}
+
 function checkGameState() {
     if (score >= target) {
-        showOverlay("🎉 LEVEL PASSED!", "You collected " + score + " points.");
+        showOverlay("🎉 LEVEL PASSED!", "Great Job! Score: " + score);
     } else if (moves <= 0) {
         showOverlay("💥 GAME OVER", "Out of moves!");
     }
