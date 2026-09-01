@@ -11,8 +11,6 @@
     --panel: #2b0d40;
     --border: #68258b;
     --gold: #ffd166;
-    --pink: #ff477e;
-    --blue: #4dabf7;
 }
 
 * {
@@ -25,7 +23,7 @@
 }
 
 body {
-    font-family: Arial, "Segoe UI", sans-serif;
+    font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #4b1768 0%, #21082f 38%, #100316 100%);
     color: #fff;
     min-height: 100vh;
@@ -38,7 +36,6 @@ body {
     width: 100%;
     max-width: 440px;
     height: 100vh;
-    min-height: 600px;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -47,7 +44,7 @@ body {
 
 .screen.active { display: flex; }
 
-/* MAP */
+/* MAP SCREEN */
 .map-title {
     margin-top: 22px;
     font-size: 34px;
@@ -57,9 +54,10 @@ body {
 
 .map-info {
     margin: 12px 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.4);
     padding: 10px 18px;
     border-radius: 20px;
+    font-size: 16px;
 }
 
 .map-container {
@@ -74,50 +72,38 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    position: relative;
+    gap: 20px;
 }
 
-.map-container::-webkit-scrollbar { display: none; }
-
 .map-level {
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    border: 4px solid #9b59b6;
+    border: 3px solid #9b59b6;
     background: #49205e;
     color: #fff;
-    font-size: 23px;
+    font-size: 22px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 6px 12px #0008;
-    position: relative;
-    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-.map-level:nth-child(odd) { margin-left: 75px; }
-.map-level:nth-child(even) { margin-right: 75px; }
+.map-level:nth-child(odd) { margin-left: 60px; }
+.map-level:nth-child(even) { margin-right: 60px; }
 
 .map-level.active {
     background: linear-gradient(#ffd166, #f39c12);
     border-color: #fff;
     color: #4a2600;
-    animation: bounce 1s infinite alternate;
 }
 
 .map-level.locked {
     background: #252525;
     border-color: #555;
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-7px); }
+    opacity: 0.5;
 }
 
 /* GAME HEADER */
@@ -126,23 +112,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 9px 0;
+    margin: 10px 0;
 }
 
 .game-name {
     color: var(--gold);
     font-size: 20px;
-    font-weight: 900;
+    font-weight: bold;
 }
 
 .icon-btn {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border: 0;
     border-radius: 50%;
     background: #42145e;
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
 }
 
@@ -151,40 +137,26 @@ body {
     background: linear-gradient(145deg, #3b1454, #260b38);
     border: 2px solid var(--border);
     border-radius: 18px;
-    padding: 9px 5px;
+    padding: 10px 5px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    box-shadow: 0 6px 18px #0007;
 }
 
 .stat { text-align: center; }
+.stat-label { display: block; color: #c8a9d8; font-size: 11px; font-weight: bold; }
+.stat-value { display: block; color: #fff; font-size: 18px; font-weight: bold; margin-top: 2px; }
 
-.stat-label {
-    display: block;
-    color: #c8a9d8;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.stat-value {
-    display: block;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 900;
-    margin-top: 2px;
-}
-
-/* BOARD */
+/* BOARD & CANDIES */
 #board-wrap {
-    width: min(94vw, 410px);
+    width: min(92vw, 400px);
     aspect-ratio: 1;
-    padding: 6px;
-    margin-top: 10px;
+    padding: 8px;
+    margin-top: 15px;
     position: relative;
     background: #100714;
     border: 4px solid #713294;
     border-radius: 20px;
-    box-shadow: 0 10px 25px #0009, inset 0 0 20px #000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
 }
 
 #grid {
@@ -193,12 +165,12 @@ body {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    gap: 4px;
+    gap: 5px;
 }
 
 .cell {
-    background: rgba(255, 255, 255, 0.055);
-    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
     position: relative;
 }
 
@@ -209,94 +181,59 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 22px;
     cursor: pointer;
-    box-shadow: inset 3px 3px 5px #fff8, inset -4px -5px 7px #0006, 0 2px 4px #0009;
-    transition: transform 0.16s, filter 0.16s, opacity 0.2s;
+    box-shadow: inset 2px 2px 4px rgba(255,255,255,0.6), inset -3px -3px 5px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.4);
+    transition: transform 0.15s;
 }
 
-.c0 { background: #ff3b57; }
-.c1 { background: #2d9cff; }
-.c2 { background: #27d66d; }
-.c3 { background: #ffc400; }
-.c4 { background: #a855d8; }
-.c5 { background: #ff8c24; }
+/* CANDY COLORS */
+.c-0 { background: linear-gradient(135deg, #ff4d4d, #cc0000); } /* Red */
+.c-1 { background: linear-gradient(135deg, #3399ff, #0052cc); } /* Blue */
+.c-2 { background: linear-gradient(135deg, #33cc33, #1f7a1f); } /* Green */
+.c-3 { background: linear-gradient(135deg, #ffcc00, #cc9900); } /* Yellow */
+.c-4 { background: linear-gradient(135deg, #cc33ff, #7a0099); } /* Purple */
+.c-5 { background: linear-gradient(135deg, #ff9933, #cc5200); } /* Orange */
 
 .selected {
-    transform: scale(1.16);
-    filter: brightness(1.35);
-    box-shadow: 0 0 16px #fff, inset 3px 3px 5px #fff8;
-    z-index: 5;
+    transform: scale(1.15);
+    box-shadow: 0 0 15px #fff, inset 2px 2px 4px #fff;
+    z-index: 10;
 }
 
 /* CONTROLS */
-.controls {
-    display: flex;
-    gap: 9px;
-    margin-top: 12px;
-}
-
+.controls { display: flex; gap: 12px; margin-top: 15px; }
 .btn {
     border: 0;
-    border-radius: 24px;
-    padding: 11px 18px;
+    border-radius: 20px;
+    padding: 10px 20px;
     color: #fff;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
     cursor: pointer;
-    background: linear-gradient(#ff668d, #ed285b);
-    box-shadow: 0 4px 0 #9e1640;
+    background: linear-gradient(#4dabf7, #1c7ed6);
+    box-shadow: 0 4px 0 #1864ab;
 }
-
-.btn:active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 #9e1640;
-}
-
-.btn.blue {
-    background: linear-gradient(#62b8ff, #2788e8);
-    box-shadow: 0 4px 0 #07579d;
-}
-
-.target {
-    margin-top: 9px;
-    font-weight: bold;
-    color: #ffe8a3;
-}
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #1864ab; }
+.target-txt { margin-top: 10px; font-weight: bold; color: #ffe8a3; }
 
 /* OVERLAY */
 .overlay {
     position: absolute;
     inset: 0;
-    border-radius: 17px;
-    background: rgba(8, 2, 13, 0.9);
+    border-radius: 16px;
+    background: rgba(10, 3, 18, 0.92);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
     opacity: 0;
     pointer-events: none;
     transition: 0.3s;
     z-index: 20;
 }
-
-.overlay.show {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.overlay h2 {
-    font-size: 29px;
-    color: var(--gold);
-    margin-bottom: 10px;
-}
-
-.overlay p {
-    color: #eee;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
+.overlay.show { opacity: 1; pointer-events: auto; }
+.overlay h2 { font-size: 28px; color: var(--gold); margin-bottom: 10px; }
 </style>
 </head>
 
@@ -305,11 +242,7 @@ body {
 <!-- MAP SCREEN -->
 <section id="map-screen" class="screen active">
     <h1 class="map-title">🍬 Candy Blast</h1>
-    <div class="map-info">
-        ❤️ Lives: <b id="map-lives">5</b>
-        &nbsp; | &nbsp;
-        🏆 Best: <b id="map-best">0</b>
-    </div>
+    <div class="map-info">❤️ Lives: <b id="map-lives">5</b> | 🏆 Best: <b id="map-best">0</b></div>
     <div class="map-container" id="map-tree"></div>
 </section>
 
@@ -321,164 +254,132 @@ body {
         <button class="icon-btn" id="sound-btn" onclick="toggleSound()">🔊</button>
     </div>
     <div class="header">
-        <div class="stat">
-            <span class="stat-label">LEVEL</span>
-            <span class="stat-value" id="level-val">1</span>
-        </div>
-        <div class="stat">
-            <span class="stat-label">TARGET</span>
-            <span class="stat-value" id="target-val">1000</span>
-        </div>
-        <div class="stat">
-            <span class="stat-label">SCORE</span>
-            <span class="stat-value" id="score-val">0</span>
-        </div>
-        <div class="stat">
-            <span class="stat-label">MOVES</span>
-            <span class="stat-value" id="moves-val">22</span>
-        </div>
+        <div class="stat"><span class="stat-label">LEVEL</span><span class="stat-value" id="level-val">1</span></div>
+        <div class="stat"><span class="stat-label">TARGET</span><span class="stat-value" id="target-val">1000</span></div>
+        <div class="stat"><span class="stat-label">SCORE</span><span class="stat-value" id="score-val">0</span></div>
+        <div class="stat"><span class="stat-label">MOVES</span><span class="stat-value" id="moves-val">22</span></div>
     </div>
     <div id="board-wrap">
         <div id="grid"></div>
         <div id="overlay" class="overlay">
             <h2 id="modal-title">🎉 Level Complete!</h2>
-            <p id="modal-desc"></p>
+            <p id="modal-desc" style="margin-bottom:15px;"></p>
             <button class="btn" id="modal-btn" onclick="modalAction()">Next Level</button>
         </div>
     </div>
-    <div class="target">
-        🎯 Target: <span id="target-bottom">1000</span>
-    </div>
+    <div class="target-txt">🎯 Target: <span id="target-bottom">1000</span></div>
     <div class="controls">
-        <button class="btn blue" onclick="shuffleBoard()">🔄 Shuffle</button>
-        <button class="btn blue" onclick="exitToMap()">🗺️ Map</button>
+        <button class="btn" onclick="shuffleBoard()">🔄 Shuffle</button>
+        <button class="btn" onclick="exitToMap()">🗺️ Map</button>
     </div>
 </section>
 
 <script>
 // @ts-nocheck
 
+/** @type {number} */
 var SIZE = 8;
+/** @type {number} */
 var TYPES = 6;
+/** @type {string[]} */
+var CANDY_ICONS = ['🍬', '🍭', '🍫', '🍩', '🧁', '🍇'];
 
+/** @type {(number|null)[]} */
 var board = [];
+/** @type {number} */
 var level = 1;
+/** @type {number} */
 var score = 0;
+/** @type {number} */
 var target = 1000;
+/** @type {number} */
 var moves = 22;
-
+/** @type {number} */
 var lives = 5;
+/** @type {number} */
 var highScore = 0;
+/** @type {number} */
 var unlocked = 1;
-
+/** @type {number|null} */
 var selected = null;
-var processing = false;
+/** @type {boolean} */
 var soundEnabled = true;
 
-function loadData() {
-    lives = parseInt(localStorage.getItem("cb_lives") || "5") || 5;
-    highScore = parseInt(localStorage.getItem("cb_highscore") || "0") || 0;
-    unlocked = parseInt(localStorage.getItem("cb_unlocked") || "1") || 1;
-}
-
-function saveData() {
-    localStorage.setItem("cb_lives", lives.toString());
-    localStorage.setItem("cb_highscore", highScore.toString());
-    localStorage.setItem("cb_unlocked", unlocked.toString());
-}
-
 function renderMap() {
-    loadData();
+    lives = parseInt(localStorage.getItem("cb_lives") || "5");
+    highScore = parseInt(localStorage.getItem("cb_highscore") || "0");
+    unlocked = parseInt(localStorage.getItem("cb_unlocked") || "1");
+    
     var ml = document.getElementById("map-lives");
     var mb = document.getElementById("map-best");
-    if(ml) ml.innerText = lives.toString();
-    if(mb) mb.innerText = highScore.toString();
+    if (ml) ml.innerText = lives.toString();
+    if (mb) mb.innerText = highScore.toString();
     
     var tree = document.getElementById("map-tree");
-    if(!tree) return;
+    if (!tree) return;
     tree.innerHTML = "";
     
-    for(var i = 1; i <= 30; i++) {
-        (function(lvl) {
-            var btn = document.createElement("div");
-            btn.className = "map-level";
-            if(lvl === unlocked) btn.classList.add("active");
-            if(lvl > unlocked) {
-                btn.classList.add("locked");
-                btn.innerText = "🔒";
-            } else {
-                btn.innerText = lvl.toString();
-                btn.onclick = function() { startLevel(lvl); };
-            }
-            tree.appendChild(btn);
+    for (var i = 1; i <= 30; i++) {
+        var btn = document.createElement("div");
+        btn.className = "map-level" + (i === unlocked ? " active" : "") + (i > unlocked ? " locked" : "");
+        btn.innerText = i > unlocked ? "🔒" : i.toString();
+        (function(/** @type {number} */ lvl) {
+            if (lvl <= unlocked) btn.onclick = function() { startLevel(lvl); };
         })(i);
+        tree.appendChild(btn);
     }
-}
-
-function exitToMap() {
-    var gameEl = document.getElementById("game-screen");
-    var mapEl = document.getElementById("map-screen");
-    if(gameEl) gameEl.classList.remove("active");
-    if(mapEl) mapEl.classList.add("active");
-    renderMap();
 }
 
 /**
  * @param {number} lvl
  */
 function startLevel(lvl) {
-    if(lvl > unlocked) return;
-    level = lvl;
-    score = 0;
-    moves = 20 + level * 2;
-    target = level * 1000;
-    selected = null;
-    processing = false;
-    
+    level = lvl; score = 0; moves = 20 + level * 2; target = level * 1000; selected = null;
     var mapEl = document.getElementById("map-screen");
     var gameEl = document.getElementById("game-screen");
-    if(mapEl) mapEl.classList.remove("active");
-    if(gameEl) gameEl.classList.add("active");
-    
+    if (mapEl) mapEl.classList.remove("active");
+    if (gameEl) gameEl.classList.add("active");
     hideModal();
     createBoard();
     updateUI();
 }
 
+function exitToMap() {
+    var mapEl = document.getElementById("map-screen");
+    var gameEl = document.getElementById("game-screen");
+    if (gameEl) gameEl.classList.remove("active");
+    if (mapEl) mapEl.classList.add("active");
+    renderMap();
+}
+
 function createBoard() {
     var grid = document.getElementById("grid");
-    if(!grid) return;
+    if (!grid) return;
     grid.innerHTML = "";
-    board = new Array(SIZE * SIZE);
-    
-    for(var i = 0; i < SIZE * SIZE; i++) {
+    board = [];
+    for (var i = 0; i < SIZE * SIZE; i++) {
         var cell = document.createElement("div");
         cell.className = "cell";
         grid.appendChild(cell);
-    }
-    
-    for(var j = 0; j < SIZE * SIZE; j++) {
-        board[j] = Math.floor(Math.random() * TYPES);
+        board.push(Math.floor(Math.random() * TYPES));
     }
     renderBoard();
 }
 
 function renderBoard() {
     var grid = document.getElementById("grid");
-    if(!grid) return;
+    if (!grid) return;
     var cells = grid.children;
-    
-    for(var i = 0; i < SIZE * SIZE; i++) {
+    for (var i = 0; i < SIZE * SIZE; i++) {
         cells[i].innerHTML = "";
-        if(board[i] !== null && board[i] !== undefined) {
+        var item = board[i];
+        if (item !== null && item !== undefined) {
             var candy = document.createElement("div");
-            candy.className = "candy c-" + board[i];
-            if(selected === i) candy.classList.add("selected");
-            
-            (function(idx) {
+            candy.className = "candy c-" + item + (selected === i ? " selected" : "");
+            candy.innerText = CANDY_ICONS[item] || "";
+            (function(/** @type {number} */ idx) {
                 candy.onclick = function() { selectCandy(idx); };
             })(i);
-            
             cells[i].appendChild(candy);
         }
     }
@@ -488,42 +389,32 @@ function renderBoard() {
  * @param {number} index
  */
 function selectCandy(index) {
-    if(processing) return;
-    
-    if(selected === null) {
+    if (selected === null) {
         selected = index;
-        renderBoard();
-        return;
-    }
-    
-    if(selected === index) {
+    } else if (selected === index) {
         selected = null;
-        renderBoard();
-        return;
-    }
-    
-    if(isAdjacent(selected, index)) {
-        swap(selected, index);
-        selected = null;
-        moves--;
-        updateUI();
-        renderBoard();
-        checkMatches();
     } else {
-        selected = index;
-        renderBoard();
+        if (isAdjacent(selected, index)) {
+            swap(selected, index);
+            selected = null;
+            moves--;
+            updateUI();
+            checkMatches();
+        } else {
+            selected = index;
+        }
     }
+    renderBoard();
 }
 
 /**
  * @param {number} a
  * @param {number} b
+ * @returns {boolean}
  */
 function isAdjacent(a, b) {
-    var r1 = Math.floor(a / SIZE);
-    var c1 = a % SIZE;
-    var r2 = Math.floor(b / SIZE);
-    var c2 = b % SIZE;
+    var r1 = Math.floor(a / SIZE), c1 = a % SIZE;
+    var r2 = Math.floor(b / SIZE), c2 = b % SIZE;
     return Math.abs(r1 - r2) + Math.abs(c1 - c2) === 1;
 }
 
@@ -532,59 +423,38 @@ function isAdjacent(a, b) {
  * @param {number} b
  */
 function swap(a, b) {
-    var temp = board[a];
-    board[a] = board[b];
-    board[b] = temp;
+    var temp = board[a]; board[a] = board[b]; board[b] = temp;
 }
 
 function checkMatches() {
     var matched = new Set();
-    
-    /* Horizontal */
-    for(var r = 0; r < SIZE; r++) {
-        for(var c = 0; c < SIZE - 2; c++) {
+    for (var r = 0; r < SIZE; r++) {
+        for (var c = 0; c < SIZE - 2; c++) {
             var idx = r * SIZE + c;
-            var val = board[idx];
-            if(val !== null && val === board[idx+1] && val === board[idx+2]) {
-                matched.add(idx);
-                matched.add(idx+1);
-                matched.add(idx+2);
+            if (board[idx] !== null && board[idx] === board[idx+1] && board[idx] === board[idx+2]) {
+                matched.add(idx); matched.add(idx+1); matched.add(idx+2);
             }
         }
     }
-    
-    /* Vertical */
-    for(var c = 0; c < SIZE; c++) {
-        for(var r = 0; r < SIZE - 2; r++) {
-            var vIdx = r * SIZE + c;
-            var vVal = board[vIdx];
-            if(vVal !== null && vVal === board[(r+1)*SIZE+c] && vVal === board[(r+2)*SIZE+c]) {
-                matched.add(vIdx);
-                matched.add((r+1)*SIZE+c);
-                matched.add((r+2)*SIZE+c);
+    for (var c = 0; c < SIZE; c++) {
+        for (var r = 0; r < SIZE - 2; r++) {
+            var idx = r * SIZE + c;
+            if (board[idx] !== null && board[idx] === board[(r+1)*SIZE+c] && board[idx] === board[(r+2)*SIZE+c]) {
+                matched.add(idx); matched.add((r+1)*SIZE+c); matched.add((r+2)*SIZE+c);
             }
         }
     }
-    
-    if(matched.size > 0) {
+    if (matched.size > 0) {
         score += matched.size * 10;
+        matched.forEach(function(i) { board[i] = Math.floor(Math.random() * TYPES); });
         updateUI();
-        
-        matched.forEach(function(i) {
-            board[i] = Math.floor(Math.random() * TYPES);
-        });
-        
         renderBoard();
-        checkGameState();
-    } else {
-        checkGameState();
     }
+    checkGameState();
 }
 
 function shuffleBoard() {
-    for(var i = 0; i < SIZE * SIZE; i++) {
-        board[i] = Math.floor(Math.random() * TYPES);
-    }
+    for (var i = 0; i < SIZE * SIZE; i++) board[i] = Math.floor(Math.random() * TYPES);
     renderBoard();
 }
 
@@ -595,74 +465,62 @@ function updateUI() {
     var tb = document.getElementById("target-bottom");
     var mv = document.getElementById("moves-val");
     
-    if(lv) lv.innerText = level.toString();
-    if(sv) sv.innerText = score.toString();
-    if(tv) tv.innerText = target.toString();
-    if(tb) tb.innerText = target.toString();
-    if(mv) mv.innerText = moves.toString();
+    if (lv) lv.innerText = level.toString();
+    if (sv) sv.innerText = score.toString();
+    if (tv) tv.innerText = target.toString();
+    if (tb) tb.innerText = target.toString();
+    if (mv) mv.innerText = moves.toString();
 }
 
 function checkGameState() {
-    if(score >= target) {
-        if(score > highScore) highScore = score;
-        if(level === unlocked) unlocked = Math.min(30, unlocked + 1);
-        saveData();
-        showModal("🎉 LEVEL COMPLETE!", "You scored " + score + " points.", "Next Level");
-        return;
-    }
-    if(moves <= 0) {
+    if (score >= target) {
+        if (score > highScore) highScore = score;
+        if (level === unlocked) unlocked = Math.min(30, unlocked + 1);
+        localStorage.setItem("cb_highscore", highScore.toString());
+        localStorage.setItem("cb_unlocked", unlocked.toString());
+        showModal("🎉 LEVEL COMPLETE!", "Scored: " + score, "Next Level");
+    } else if (moves <= 0) {
         lives = Math.max(0, lives - 1);
-        saveData();
-        if(lives > 0) {
-            showModal("💥 GAME OVER!", "Out of moves. Lives left: " + lives, "Try Again");
-        } else {
-            showModal("💔 NO LIVES", "Out of lives!", "Go to Map");
-        }
+        localStorage.setItem("cb_lives", lives.toString());
+        showModal("💥 GAME OVER!", "Out of moves!", lives > 0 ? "Try Again" : "To Map");
     }
 }
 
 /**
  * @param {string} title
  * @param {string} desc
- * @param {string} button
+ * @param {string} btn
  */
-function showModal(title, desc, button) {
+function showModal(title, desc, btn) {
     var mt = document.getElementById("modal-title");
     var md = document.getElementById("modal-desc");
     var mb = document.getElementById("modal-btn");
     var ov = document.getElementById("overlay");
-    
-    if(mt) mt.innerText = title;
-    if(md) md.innerText = desc;
-    if(mb) mb.innerText = button;
-    if(ov) ov.classList.add("show");
+    if (mt) mt.innerText = title;
+    if (md) md.innerText = desc;
+    if (mb) mb.innerText = btn;
+    if (ov) ov.classList.add("show");
 }
 
 function hideModal() {
     var ov = document.getElementById("overlay");
-    if(ov) ov.classList.remove("show");
+    if (ov) ov.classList.remove("show");
 }
 
 function modalAction() {
     hideModal();
-    if(score >= target) {
-        if(level < 30) startLevel(level + 1);
-        else exitToMap();
-    } else {
-        if(lives > 0) startLevel(level);
-        else exitToMap();
-    }
+    if (score >= target) startLevel(level < 30 ? level + 1 : level);
+    else if (lives > 0) startLevel(level);
+    else exitToMap();
 }
 
 function toggleSound() {
     soundEnabled = !soundEnabled;
     var btn = document.getElementById("sound-btn");
-    if(btn) btn.innerText = soundEnabled ? "🔊" : "🔇";
+    if (btn) btn.innerText = soundEnabled ? "🔊" : "🔇";
 }
 
-window.onload = function() {
-    renderMap();
-};
+window.onload = renderMap;
 </script>
 </body>
 </html>
