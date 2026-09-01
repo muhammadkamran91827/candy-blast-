@@ -181,21 +181,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 20px;
     cursor: pointer;
-    box-shadow: inset 2px 2px 4px rgba(255,255,255,0.6), inset -3px -3px 5px rgba(0,0,0,0.4), 0 3px 6px rgba(0,0,0,0.4);
+    box-shadow: inset 2px 2px 4px rgba(255,255,255,0.7), inset -3px -3px 5px rgba(0,0,0,0.5), 0 3px 6px rgba(0,0,0,0.5);
     transition: transform 0.15s;
 }
 
-/* CANDY COLORS */
-.c-0 { background: linear-gradient(135deg, #ff4d4d, #cc0000); } /* Red */
-.c-1 { background: linear-gradient(135deg, #3399ff, #0052cc); } /* Blue */
-.c-2 { background: linear-gradient(135deg, #33cc33, #1f7a1f); } /* Green */
-.c-3 { background: linear-gradient(135deg, #ffcc00, #cc9900); } /* Yellow */
-.c-4 { background: linear-gradient(135deg, #cc33ff, #7a0099); } /* Purple */
-.c-5 { background: linear-gradient(135deg, #ff9933, #cc5200); } /* Orange */
-
-.selected {
+.candy.selected {
     transform: scale(1.15);
     box-shadow: 0 0 15px #fff, inset 2px 2px 4px #fff;
     z-index: 10;
@@ -281,6 +273,17 @@ body {
 var SIZE = 8;
 /** @type {number} */
 var TYPES = 6;
+
+/** @type {string[]} */
+var CANDY_COLORS = [
+    'linear-gradient(135deg, #ff4d4d, #cc0000)', // Red
+    'linear-gradient(135deg, #3399ff, #0052cc)', // Blue
+    'linear-gradient(135deg, #33cc33, #1f7a1f)', // Green
+    'linear-gradient(135deg, #ffcc00, #cc9900)', // Yellow
+    'linear-gradient(135deg, #cc33ff, #7a0099)', // Purple
+    'linear-gradient(135deg, #ff9933, #cc5200)'  // Orange
+];
+
 /** @type {string[]} */
 var CANDY_ICONS = ['🍬', '🍭', '🍫', '🍩', '🧁', '🍇'];
 
@@ -375,7 +378,8 @@ function renderBoard() {
         var item = board[i];
         if (item !== null && item !== undefined) {
             var candy = document.createElement("div");
-            candy.className = "candy c-" + item + (selected === i ? " selected" : "");
+            candy.className = "candy" + (selected === i ? " selected" : "");
+            candy.style.background = CANDY_COLORS[item];
             candy.innerText = CANDY_ICONS[item] || "";
             (function(/** @type {number} */ idx) {
                 candy.onclick = function() { selectCandy(idx); };
